@@ -1,2 +1,3 @@
 # Proyecto_Final_EII
-Generador de señales VGA
+Generador de señales de sinc VGA
+
