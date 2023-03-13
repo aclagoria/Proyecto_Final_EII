@@ -6,7 +6,9 @@ use work.ffd_pkg.all;
 entity sinc is
     
     port(
+        clk_31Khz : in std_logic;
         clk_25Mhz : in std_logic;
+
         rst       : in std_logic;
         hab       : in std_logic;
                          
@@ -55,9 +57,9 @@ architecture solucion of sinc is
 begin
     --Memoria de estado
     ME_horizontal: ffd generic map(N=>2) port map (rst=>rst,hab=>hab,D=>E_sig_h,clk=>clk_25Mhz,Q=>E_act_h);
-    ME_vertical  : ffd generic map(N=>2) port map (rst=>rst,hab=>hab,D=>E_sig_v,clk=>clk_25Mhz,Q=>E_act_v);
+    ME_vertical  : ffd generic map(N=>2) port map (rst=>rst,hab=>hab,D=>E_sig_v,clk=>clk_31Khz,Q=>E_act_v);
     ME_cont_horizontal: ffd generic map(N=>10) port map (rst=>rst,hab=>hab,D=>cont_sig_h,clk=>clk_25Mhz,Q=>cont_act_h);
-    ME_cont_vertical  : ffd generic map(N=>10) port map (rst=>rst,hab=>hab,D=>cont_sig_v,clk=>clk_25Mhz,Q=>cont_act_v);
+    ME_cont_vertical  : ffd generic map(N=>10) port map (rst=>rst,hab=>hab,D=>cont_sig_v,clk=>clk_31Khz,Q=>cont_act_v);
 
     --Logica del estado siguiente
     LES:process(clk_25Mhz,cont_act_h,cont_act_v)
@@ -78,7 +80,9 @@ begin
             else
             E_sig_h<=E_act_h;
             end if ;
- 
+
+        elsif(clk_31Khz'event and clk_31Khz='1')then
+
             cont_sig_v<=std_logic_vector(unsigned(cont_act_v)+1);
             if (cont_act_v=f_max) then
                 E_sig_v <= parche_superior;
