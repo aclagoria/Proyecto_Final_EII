@@ -20,10 +20,8 @@ begin
     begin
         if ( rst='1') then
             Q <= ( others => '0' );
-        elsif ( hab='1') then
-            if ( clk'event and clk='1') then
-                Q <= D;
-                end if;
+        elsif  ( clk'event and clk='1') then
+            Q <= D;    
         end if;
     end process;
 end solucion;
