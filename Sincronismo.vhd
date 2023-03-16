@@ -3,7 +3,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use work.ffd_pkg.all;
 
-entity sinc is
+entity sincronismo is
     
     port(
         clk       : in std_logic;
@@ -15,10 +15,10 @@ entity sinc is
         visible   : out std_logic; 
         fila      : out std_logic_vector(9 downto 0);
         columna   : out std_logic_vector(9 downto 0));
-end sinc;
+end sincronismo;
 
 
-architecture solucion of sinc is
+architecture solucion of sincronismo is
 
     subtype estado_horizontal is std_logic_vector(1 downto 0);
     subtype estado_vertical   is std_logic_vector(1 downto 0);
@@ -40,24 +40,24 @@ architecture solucion of sinc is
     signal   cont_act_h,cont_sig_h  : estado_cont_horizontal ;
     signal   cont_act_v,cont_sig_v  : estado_cont_vertical   ;
 
-    constant c_max                                : estado_cont_horizontal :=std_logic_vector(800);
-    constant c_izq_max                            : estado_cont_horizontal :=std_logic_vector(16);
-    constant c_visible_max                        : estado_cont_horizontal :=std_logic_vector(656);
-    constant c_sinc_max                           : estado_cont_horizontal :=std_logic_vector(752);
+    constant c_max                                : estado_cont_horizontal :="1100100000" ; --800
+    constant c_izq_max                            : estado_cont_horizontal :="0000010000" ; --16
+    constant c_visible_max                        : estado_cont_horizontal :="1010010000" ; --656
+    constant c_sinc_max                           : estado_cont_horizontal :="1011000000" ; --704
     
-    constant f_max                                : estado_cont_vertical :=std_logic_vector(525);
-    constant f_sup_max                            : estado_cont_vertical :=std_logic_vector(10);
-    constant f_visible_max                        : estado_cont_vertical :=std_logic_vector(490);
-    constant f_sinc_max                           : estado_cont_vertical :=std_logic_vector(492);
+    constant f_max                                : estado_cont_vertical := "1000001101" ; --525
+    constant f_sup_max                            : estado_cont_vertical := "0000001010" ; --10
+    constant f_visible_max                        : estado_cont_vertical := "0111101010" ; --490
+    constant f_sinc_max                           : estado_cont_vertical := "1000001011" ; --523
     
 
 
 begin
     --Memoria de estado
-    ME_horizontal: ffd generic map(N=>2) port map (rst=>rst,hab=>hab,D=>E_sig_h,clk=>clk,Q=>E_act_h);
-    ME_vertical  : ffd generic map(N=>2) port map (rst=>rst,hab=>hab,D=>E_sig_v,clk=>clk,Q=>E_act_v);
-    ME_cont_horizontal: ffd generic map(N=>10) port map (rst=>rst,hab=>hab,D=>cont_sig_h,clk=>clk,Q=>cont_act_h);
-    ME_cont_vertical  : ffd generic map(N=>10) port map (rst=>rst,hab=>hab,D=>cont_sig_v,clk=>clk,Q=>cont_act_v);
+    ME_horizontal: ffd generic map(N=>2) port map (rst=>rst,D=>E_sig_h,clk=>clk,Q=>E_act_h);
+    ME_vertical  : ffd generic map(N=>2) port map (rst=>rst,D=>E_sig_v,clk=>clk,Q=>E_act_v);
+    ME_cont_horizontal: ffd generic map(N=>10) port map (rst=>rst,D=>cont_sig_h,clk=>clk,Q=>cont_act_h);
+    ME_cont_vertical  : ffd generic map(N=>10) port map (rst=>rst,D=>cont_sig_v,clk=>clk,Q=>cont_act_v);
 
     --Logica del estado siguiente
     LES:process(clk,cont_act_h,cont_act_v)
