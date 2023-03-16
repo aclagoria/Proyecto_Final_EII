@@ -11,7 +11,7 @@ architecture tb of sincronismo_tb is
     component sincronismo is
         port(
             rst        : in std_logic; 
-            clk        : in std_logic;
+            clk        : in std_logic; --frecuencia del pixel 25.17MHz-->T=40 ns
 
             sinc_h    : out std_logic;
             sinc_v    : out std_logic;
@@ -22,42 +22,44 @@ architecture tb of sincronismo_tb is
     end component;
     -- Declaraciones
     -- Constantes
-    constant T        : time  := 10 ns;
+    constant T_L        : time  := 20 ns;
     
     --señales
    signal rst_in        : std_logic; 
    signal clk_in        : std_logic;
-   signal sinc_h_in     : std_logic;
-   signal sinc_v_in     : std_logic;
-   signal visible_in    : std_logic; 
-   signal fila_in       : std_logic_vector(9 downto 0);    
-   signal columna_in    : std_logic_vector(9 downto 0);
+   
+   signal sinc_h_out     : std_logic;
+   signal sinc_v_out     : std_logic;
+   signal visible_out    : std_logic; 
+   signal fila_out       : std_logic_vector(9 downto 0);    
+   signal columna_out    : std_logic_vector(9 downto 0);
 
    begin
     DUT:sincronismo port map(
-        rst       =>rst_in    ,
-        clk       =>clk_in    ,
-        sinc_h    =>sinc_h_in ,
-        sinc_v    =>sinc_v_in ,
-        visible   =>visible_in,
-        fila      =>fila_in   ,  
-        columna   =>columna_in);
+        rst       =>rst_in     ,
+        clk       =>clk_in     ,
+
+        sinc_h    =>sinc_h_out  ,
+        sinc_v    =>sinc_v_out  ,
+        visible   =>visible_out ,
+        fila      =>fila_out    ,  
+        columna   =>columna_out );
     
     reloj:process
      begin
         clk_in <= '0';
-        wait for T;
+        wait for T_L;
         clk_in <= '1';
-        wait for T;
+        wait for T_L;
     end process;
 
     estimulo: process
     begin
         --reset
         rst_in <= '1';
-        wait for T ;
+        wait for T_L ;
         rst_in <= '0';
-        wait for 2.5 ms ; 
+        wait for  100 us; 
         finish;
     end process;
 
