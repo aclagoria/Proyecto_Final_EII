@@ -11,7 +11,7 @@ architecture tb of sincronismo_tb is
     component sincronismo is
         port(
             rst        : in std_logic; 
-            clk        : in std_logic; --frecuencia del pixel 25.17MHz-->T=40 ns
+            clk        : in std_logic; --frecuencia de trabajo 104 MHz-->T= 9.615384615// voy a probar con 100MHZ T=10 ns
 
             sinc_h    : out std_logic;
             sinc_v    : out std_logic;
@@ -22,7 +22,7 @@ architecture tb of sincronismo_tb is
     end component;
     -- Declaraciones
     -- Constantes
-    constant T_L        : time  := 20 ns;
+    constant T_L        : time  := 5 ns;
     
     --señales
    signal rst_in        : std_logic; 
@@ -57,9 +57,9 @@ architecture tb of sincronismo_tb is
     begin
         --reset
         rst_in <= '1';
-        wait for T_L ;
+        wait for 2*T_L ;
         rst_in <= '0';
-        wait for  100 us; 
+        wait for  32 ms; 
         finish;
     end process;
 
