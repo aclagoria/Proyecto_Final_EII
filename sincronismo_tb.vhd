@@ -11,7 +11,7 @@ architecture tb of sincronismo_tb is
     component sincronismo is
         port(
             rst        : in std_logic; 
-            clk        : in std_logic; --frecuencia de trabajo 104 MHz-->T= 9.615384615// voy a probar con 100MHZ T=10 ns
+            clk        : in std_logic; --frecuencia de trabajo 104 MHz-->T= 9.615384615// voy a probar con 100 MHZ T=10 ns
 
             sinc_h    : out std_logic;
             sinc_v    : out std_logic;
