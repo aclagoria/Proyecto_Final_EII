@@ -32,15 +32,23 @@ architecture solucion of sincronismo is
     constant porch_inferior      : E_Vertical  := "10";
     constant sincro_vertical     : E_Vertical  := "11";
 
-    constant c_max              :std_logic_vector(9 downto 0):="1100100000";--800
-    constant c_porch_delantero  :std_logic_vector(9 downto 0):="0000010000";--16
-    constant c_col_visible      :std_logic_vector(9 downto 0):="1010010000";--656
-    constant c_porch_trasero    :std_logic_vector(9 downto 0):="1011000000";--704
+    constant c_799  :std_logic_vector(9 downto 0):="1100011111";--799
+    constant c_0    :std_logic_vector(9 downto 0):="0000000000";--0
+    constant c_15   :std_logic_vector(9 downto 0):="0000001111";--15
+    constant c_16   :std_logic_vector(9 downto 0):="0000010000";--16
+    constant c_655  :std_logic_vector(9 downto 0):="1010001111";--655
+    constant c_656  :std_logic_vector(9 downto 0):="1010010000";--656
+    constant c_703  :std_logic_vector(9 downto 0):="1010111111";--703
+    constant c_704  :std_logic_vector(9 downto 0):="1011000000";--704
 
-    constant l_max               :std_logic_vector(9 downto 0):="1000001101";--525
-    constant l_porch_superior    :std_logic_vector(9 downto 0):="0000001010";--10
-    constant l_linea_visible     :std_logic_vector(9 downto 0):="0111101010";--490
-    constant l_porch_inferior    :std_logic_vector(9 downto 0):="0111101100";--492
+    constant l_524  :std_logic_vector(9 downto 0):="1000001100";--524
+    constant l_0    :std_logic_vector(9 downto 0):="0000000000";--0
+    constant l_9    :std_logic_vector(9 downto 0):="0000001001";--9
+    constant l_10   :std_logic_vector(9 downto 0):="0000001010";--10
+    constant l_489  :std_logic_vector(9 downto 0):="0111101001";--489
+    constant l_490  :std_logic_vector(9 downto 0):="0111101010";--490
+    constant l_491  :std_logic_vector(9 downto 0):="0111101011";--491
+    constant l_492  :std_logic_vector(9 downto 0):="0111101100";--492
 
     signal new_pxl      : std_logic;
     signal new_pxl_act  : std_logic;
@@ -152,7 +160,7 @@ begin
         cont_pxl<=cont_pxl_act;
         new_linea<='0';
         if (new_pxl='1' and new_pxl_act='0') then
-            if (cont_pxl_act=c_max) then
+            if (cont_pxl_act=c_799) then
                cont_pxl<=(others=>'0');
                new_linea<='1';
             else
@@ -161,19 +169,19 @@ begin
         end if ;
     end process;
 
-    Horizontal:process(cont_pxl)
+    Horizontal:process(cont_pxl_act,cont_pxl)
     begin
         E_h<=E_h_act;
-        if cont_pxl=c_max then
+        if (cont_pxl_act=c_799 and cont_pxl=c_0) then
             E_h<=porch_delantero;
 
-        elsif cont_pxl=c_porch_delantero then
+        elsif (cont_pxl_act=c_15 and cont_pxl=c_16) then
             E_h<=col_visible;
 
-        elsif cont_pxl=c_col_visible then               
+        elsif (cont_pxl_act=c_655 and cont_pxl=c_656) then               
             E_h<=porch_trasero;
 
-        elsif cont_pxl=c_porch_trasero then
+        elsif (cont_pxl_act=c_703 and cont_pxl=c_704) then
             E_h<=sincro_horizontal;
         end if ;
 
@@ -183,7 +191,7 @@ begin
     begin
         cont_linea<=cont_linea_act;
         if (new_linea='1' and new_linea_act='0') then
-            if (cont_linea_act=l_max) then
+            if (cont_linea_act=l_524) then
                cont_linea<=(others=>'0');
             else
                cont_linea<=std_logic_vector(unsigned(cont_linea_act)+1);
@@ -191,16 +199,16 @@ begin
         end if ;
     end process;
 
-    Vertical:process(cont_linea)
+    Vertical:process(cont_linea,cont_linea_act)
     begin
         E_v<=E_v_act;
-        if cont_linea=l_max then
+        if (cont_linea_act=l_524 and cont_linea=l_0) then
             E_v<=porch_superior;
-        elsif cont_linea=l_porch_superior then
+        elsif (cont_linea_act=l_9 and cont_linea=l_10) then
             E_v<=linea_visible;
-        elsif cont_linea=l_linea_visible then               
+        elsif (cont_linea_act=l_489 and cont_linea=l_490)then               
             E_v<=porch_inferior;
-        elsif cont_linea=l_porch_inferior then
+        elsif (cont_linea_act=l_491 and cont_linea=l_492) then
             E_v<=sincro_vertical;
         end if ;
     end process;
