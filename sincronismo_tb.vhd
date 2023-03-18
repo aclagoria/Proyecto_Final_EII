@@ -59,7 +59,7 @@ architecture tb of sincronismo_tb is
         rst_in <= '1';
         wait for 2*T_L ;
         rst_in <= '0';
-        wait for  32 ms; 
+        wait for  17 ms; 
         finish;
     end process;
 
