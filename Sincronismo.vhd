@@ -75,11 +75,11 @@ architecture solucion of sincronismo is
 
 begin
     --me
-memo_cont_clk: ffd generic map(N=>2) port map (rst=>rst,D=>cont_clk,clk=>clk,Q=>cont_clk_act);
-memo_cont_pxl: ffd generic map(N=>10) port map (rst=>rst,D=>cont_pxl,clk=>clk,Q=>cont_pxl_act);
-memo_cont_linea: ffd generic map(N=>10) port map (rst=>rst,D=>cont_linea,clk=>clk,Q=>cont_linea_act);
-memo_E_lin: ffd generic map(N=>2) port map (rst=>rst,D=>E_v,clk=>clk,Q=>E_v_act);
-memo_E_col: ffd generic map(N=>2) port map (rst=>rst,D=>E_h,clk=>clk,Q=>E_h_act);
+memo_cont_clk   : ffd generic map(N=>2)  port map (rst=>rst,D=>cont_clk,clk=>clk,Q=>cont_clk_act);
+memo_cont_pxl   : ffd generic map(N=>10) port map (rst=>rst,D=>cont_pxl,clk=>clk,Q=>cont_pxl_act);
+memo_cont_linea : ffd generic map(N=>10) port map (rst=>rst,D=>cont_linea,clk=>clk,Q=>cont_linea_act);
+memo_E_lin      : ffd generic map(N=>2)  port map (rst=>rst,D=>E_v,clk=>clk,Q=>E_v_act);
+memo_E_col      : ffd generic map(N=>2)  port map (rst=>rst,D=>E_h,clk=>clk,Q=>E_h_act);
 
     --les
     Contador_de_reloj: process(cont_clk_act,rst)
