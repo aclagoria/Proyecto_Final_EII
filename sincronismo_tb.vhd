@@ -11,7 +11,7 @@ architecture tb of sincronismo_tb is
     component sincronismo is
         port(
             rst        : in std_logic; 
-            clk        : in std_logic; --frecuencia de trabajo 104 MHz-->T= 9.615384615// voy a probar con 100 MHZ T=10 ns
+            clk        : in std_logic; -- frecuencia= 25,175 MHz
 
             sinc_h    : out std_logic;
             sinc_v    : out std_logic;
@@ -20,9 +20,20 @@ architecture tb of sincronismo_tb is
             columna   : out std_logic_vector(9 downto 0));
     
     end component;
+    component grilla is
+    
+        port(
+                             
+            visible   : in std_logic; 
+            fila      : in std_logic_vector(9 downto 0);
+            columna   : in std_logic_vector(9 downto 0);
+    
+            zona      : out std_logic_vector(2 downto 0)
+            );
+    end component;
     -- Declaraciones
     -- Constantes
-    constant T_L        : time  := 5 ns;
+    constant T_L        : time  := 20 ns;--19,8609 ns
     
     --señales
    signal rst_in        : std_logic; 
@@ -33,6 +44,7 @@ architecture tb of sincronismo_tb is
    signal visible_out    : std_logic; 
    signal fila_out       : std_logic_vector(9 downto 0);    
    signal columna_out    : std_logic_vector(9 downto 0);
+   signal zona_out       : std_logic_vector(2 downto 0);
 
    begin
     DUT:sincronismo port map(
@@ -44,6 +56,13 @@ architecture tb of sincronismo_tb is
         visible   =>visible_out ,
         fila      =>fila_out    ,  
         columna   =>columna_out );
+
+    DUT2: grilla port map(                    
+        visible       => visible_out , 
+        fila          => fila_out    ,
+        columna       => columna_out ,
+        zona          => zona_out  );
+
     
     reloj:process
      begin
