@@ -14,14 +14,16 @@ entity grilla is
         celda           : out std_logic_vector(2 downto 0);
         fila_celda      : out std_logic_vector(2 downto 0);
         columna_celda   : out std_logic_vector(2 downto 0);
-        en_caracter     : out std_logic;
+        en_caracter     : out std_logic                   
         );
 end grilla;
 
 architecture solucion of grilla is
+    signal f_celda : std_logic_vector(9 downto 0);
 begin
-    celda <= columna(9 downto 7);
+    celda         <= columna(9 downto 7);
     columna_celda <= columna(6 downto 4);
-    en_caracter <= '1' when visible='1' and unsigned(fila) > 111 and unsigned(fila) < 368 else '0';
-    fila_celda <= std_logic(unsigned(fila)-112)(7 downto 5);
+    en_caracter   <= '1' when visible='1' and unsigned(fila) > 111 and unsigned(fila) < 368 else '0';
+    f_celda       <= std_logic_vector(unsigned(fila)-112);
+    fila_celda    <= f_celda (7 downto 5);
 end solucion;
