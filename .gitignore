@@ -1,2 +1,9 @@
 *.cf
 *.ghw
+icecube/icecube_Implmnt
+icecube/.vdbs
+icecube/*.twr
+icecube/*.log
+icecube/*.*rep
+icecube/xxx_*
+icecube/top_prim.v
