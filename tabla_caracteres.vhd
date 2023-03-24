@@ -1,23 +1,23 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-package pkg_rom_256x64 is
+package pkg_tabla_caracteres is
     type Tabla_256x64 is array (0 to 256) of std_logic_vector (64 downto 0);
 end package;
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-use work.pkg_rom_16x7.all;
+use work.pkg_tabla_caracteres.all;
 
-entity rom_256x64 is
+entity tabla_caracteres is
     generic (
         constant fuente : tabla_fuente  := (others=>(others=>'0')));
     port(
         dir  : in std_logic_vector (7 downto 0);
         dato : out std_logic_vector (63 downto 0));
-end rom_256x64;
+end tabla_caracteres;
 
-architecture solucion of rom_256x64 is
+architecture solucion of tabla_caracteres is
     constant fuente : tabla_fuente :=(
     0=> x"0000000000000000",
     1=> x"7e81a581bd99817e",
