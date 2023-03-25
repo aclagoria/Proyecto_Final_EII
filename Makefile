@@ -6,3 +6,10 @@ sincronismo:$(cf)
 	gtkwave -f sincronismo.ghw
 $(cf): *.vhd
 	ghdl -i $(std) *.vhd
+
+Imp_pantalla:$(cf) 
+	ghdl -m $(std) TestAmpliado_tb
+	ghdl -r $(std) TestAmpliado_tb --assert-level=none --wave=Imp_pantalla.ghw
+	gtkwave -f Imp_pantalla.ghw
+$(cf): *.vhd
+	ghdl -i $(std) *.vhd
