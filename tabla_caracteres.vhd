@@ -10,14 +10,14 @@ use IEEE.numeric_std.all;
 use work.pkg_tabla_caracteres.all;
 
 entity tabla_caracteres is
-    generic (
-        constant fuente : tabla_fuente  := (others=>(others=>'0')));
     port(
         dir  : in std_logic_vector (7 downto 0);
+
         dato : out std_logic_vector (63 downto 0));
 end tabla_caracteres;
 
 architecture solucion of tabla_caracteres is
+    type tabla_fuente is array (0 to 255) of std_logic_vector(63 downto 0);
     constant fuente : tabla_fuente :=(
     0=> x"0000000000000000",
     1=> x"7e81a581bd99817e",
@@ -277,6 +277,6 @@ architecture solucion of tabla_caracteres is
     255=> x"0000000000000000");
 begin
 
-dato <= fuente(to_integer(dir)); 
+dato <= fuente(to_integer(unsigned(dir))); 
 
 end solucion;
