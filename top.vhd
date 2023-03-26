@@ -91,7 +91,7 @@ architecture arch of top is
     signal en_caracter    : std_logic;
     signal dir            : std_logic_vector (7 downto 0);
     signal dato           : std_logic_vector (63 downto 0);
-    
+
 --fin agregado 1
 
 begin
@@ -101,7 +101,10 @@ begin
 
         sinc_h    =>sinc_h ,
         sinc_v    =>sinc_v ,
-        visible   =>visible
+                
+        visible   =>visible,
+        fila      =>fila,
+        columna   =>columna
         );
     U2 : pixel_pll port map (
         REFERENCECLK => clk,
@@ -119,10 +122,10 @@ begin
         en_caracter     =>en_caracter   
         );   
 
-    U4:Texto_fijo port map(
-        celda           =>celda ,
-        dir             =>dir
-        );
+   U4:Texto_fijo port map(
+       celda           =>celda ,
+       dir             =>dir
+       );
        
     U5: tabla_caracteres port map(
         dir     =>dir,

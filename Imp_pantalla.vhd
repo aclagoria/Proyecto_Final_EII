@@ -1,7 +1,6 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-use IEEE.numeric_std_unsigned.all;
 
 entity Imp_pantalla is
     
@@ -20,8 +19,8 @@ architecture solucion of Imp_pantalla is
     signal pos_en_dato: integer;
 begin
 
- pos_en_dato <= to_integer(unsigned(fila_celda)&unsigned(columna_celda));
+ pos_en_dato <= 63-to_integer(unsigned(fila_celda)&unsigned(columna_celda));
 
- pixel  <= dato(pos_en_dato) when en_caracter='1' else '0';
+ pixel  <= dato(pos_en_dato) when en_caracter='1' else '0' ;
     
 end solucion;

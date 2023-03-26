@@ -13,3 +13,11 @@ Imp_pantalla:$(cf)
 	gtkwave -f Imp_pantalla.ghw
 $(cf): *.vhd
 	ghdl -i $(std) *.vhd
+
+Marquesina:$(cf) 
+	ghdl -m $(std) Marquesina_tb
+	ghdl -r $(std) Marquesina_tb --assert-level=none --wave=Marquesina.ghw
+	gtkwave -f Marquesina.ghw
+$(cf): *.vhd
+	ghdl -i $(std) *.vhd
+	
