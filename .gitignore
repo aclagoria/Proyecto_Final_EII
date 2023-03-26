@@ -160,3 +160,8 @@ icecube/icecube_lse.prj
 icecube/icecube_sbt.project
 icecube/icecube_syn.prj
 conf_2.xcf
+Prueba/Prueba_Implmnt/rpt_Texto_fijo_areasrr.htm
+Prueba/Prueba_Implmnt/rpt_Texto_fijo.areasrr
+Prueba/Prueba_Implmnt/sbt/Log/iceCube3.log
+Prueba/Prueba_Implmnt/synlog/report/Prueba_compiler_errors.txt
+Prueba/Prueba_Implmnt/AutoConstraint_Texto_fijo.sdc
