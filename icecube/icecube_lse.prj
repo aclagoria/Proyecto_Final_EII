@@ -33,11 +33,11 @@
 -lib work -vhd "../Sincronismo.vhd" 
 -lib work -vhd "../ffd.vhd" 
 -ver "../pixel_pll.v"
--lib work -vhd "../top.vhd" 
 -lib work -vhd "../grilla.vhd" 
 -lib work -vhd "../tabla_caracteres.vhd" 
--lib work -vhd "../Texto_fijo.vhd" 
 -lib work -vhd "../Imp_pantalla.vhd" 
+-lib work -vhd "../top.vhd" 
+-lib work -vhd "../Texto_fijo.vhd" 
 -p "C:/Users/usuario/E2_2022/Proyecto_Final_EII/icecube"
 
 #set result format/file last

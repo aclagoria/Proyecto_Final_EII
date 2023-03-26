@@ -5,11 +5,11 @@
 add_file -vhdl -lib work "../Sincronismo.vhd" 
 add_file -vhdl -lib work "../ffd.vhd" 
 add_file -verilog -lib work "../pixel_pll.v" 
-add_file -vhdl -lib work "../top.vhd" 
 add_file -vhdl -lib work "../grilla.vhd" 
 add_file -vhdl -lib work "../tabla_caracteres.vhd" 
-add_file -vhdl -lib work "../Texto_fijo.vhd" 
 add_file -vhdl -lib work "../Imp_pantalla.vhd" 
+add_file -vhdl -lib work "../top.vhd" 
+add_file -vhdl -lib work "../Texto_fijo.vhd" 
 #implementation: "icecube_Implmnt"
 impl -add icecube_Implmnt -type fpga
 
