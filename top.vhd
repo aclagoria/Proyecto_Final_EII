@@ -42,39 +42,65 @@ architecture arch of top is
     component grilla is
         port(
 
-            visible   : in std_logic; 
-            fila      : in std_logic_vector(9 downto 0);
-            columna   : in std_logic_vector(9 downto 0);
-
-            celda           : out std_logic_vector(2 downto 0);
-            fila_celda      : out std_logic_vector(2 downto 0);
-            columna_celda   : out std_logic_vector(2 downto 0);
-            en_caracter     : out std_logic                   
+            visible             : in std_logic; 
+            fila                : in std_logic_vector(9 downto 0);
+            columna             : in std_logic_vector(9 downto 0);
+            
+            celda               : out std_logic_vector(2 downto 0);
+            fila_celda          : out std_logic_vector(2 downto 0);
+            columna_celda       : out std_logic_vector(2 downto 0);
+            en_caracter         : out std_logic                   ;
+            
+            celda_marco_sup     : out std_logic_vector(4 downto 0);
+            fila_marco_sup      : out std_logic_vector(2 downto 0);  
+            columna_marco_sup   : out std_logic_vector(2 downto 0);
+            en_marco_sup        : out std_logic                   ;
+            
+            celda_marco_inf     : out std_logic_vector(4 downto 0);
+            fila_marco_inf      : out std_logic_vector(2 downto 0);
+            columna_marco_inf   : out std_logic_vector(2 downto 0);
+            en_marco_inf        : out std_logic                   
             );
     end component;
 
     component Texto_fijo is
         port(
         celda           : in std_logic_vector  (2 downto 0);
-        dir             : out std_logic_vector (7 downto 0)
+        celda_marco_sup : in std_logic_vector(4 downto 0);
+        celda_marco_inf : in std_logic_vector(4 downto 0);
+
+        dir             : out std_logic_vector (7 downto 0);
+        dir_ms          : out std_logic_vector (7 downto 0);
+        dir_mi          : out std_logic_vector (7 downto 0)
         );
     end component;
     
     component tabla_caracteres is 
         port(
         dir  : in std_logic_vector (7 downto 0);
+
         dato : out std_logic_vector (63 downto 0)
         );
     end component;
     
     component Imp_pantalla is
             port(
-            dato            : in std_logic_vector (63 downto 0);
-            fila_celda      : in std_logic_vector(2 downto 0);
-            columna_celda   : in std_logic_vector(2 downto 0);
-            en_caracter     : in std_logic;                   
-    
-            pixel           : out std_logic
+                dato              : in std_logic_vector (63 downto 0);
+                fila_celda        : in std_logic_vector(2 downto 0);
+                columna_celda     : in std_logic_vector(2 downto 0);
+                en_caracter       : in std_logic;                   
+
+                dato_ms           : in std_logic_vector (63 downto 0);
+                fila_marco_sup    :in std_logic_vector(2 downto 0);
+                columna_marco_sup :in std_logic_vector(2 downto 0); 
+                en_marco_sup      : in std_logic;                   
+
+                dato_mi           : in std_logic_vector (63 downto 0);
+                fila_marco_inf    :in std_logic_vector(2 downto 0);                      
+                columna_marco_inf : in std_logic_vector(2 downto 0);
+                en_marco_inf      : in std_logic;                   
+                
+                pixel             : out std_logic
             );
     end component;
 
@@ -82,20 +108,35 @@ architecture arch of top is
     signal div1, div1_sig : std_logic_vector (24 downto 0);
     signal p_clk : std_logic; -- reloj de pixel desde pll (25.175 MHz)
 --agregado 1
-    signal visible        : std_logic; 
-    signal fila           : std_logic_vector(9 downto 0);    
-    signal columna        : std_logic_vector(9 downto 0);
-    signal celda          : std_logic_vector(2 downto 0);
-    signal fila_celda     : std_logic_vector(2 downto 0);
-    signal columna_celda  : std_logic_vector(2 downto 0);
-    signal en_caracter    : std_logic;
-    signal dir            : std_logic_vector (7 downto 0);
-    signal dato           : std_logic_vector (63 downto 0);
+    signal visible             : std_logic; 
+    signal fila                : std_logic_vector(9 downto 0);    
+    signal columna             : std_logic_vector(9 downto 0);
+    signal celda               : std_logic_vector(2 downto 0);
+    signal fila_celda          : std_logic_vector(2 downto 0);
+    signal columna_celda       : std_logic_vector(2 downto 0);
+    signal en_caracter         : std_logic;
+    signal dir                 : std_logic_vector (7 downto 0);
+    signal dato                : std_logic_vector (63 downto 0);
+
+    signal celda_marco_sup     : std_logic_vector(4 downto 0);
+    signal fila_marco_sup      : std_logic_vector(2 downto 0);
+    signal columna_marco_sup   : std_logic_vector(2 downto 0);
+    signal en_marco_sup        : std_logic;
+    signal dir_ms              : std_logic_vector (7 downto 0);
+    signal dato_ms             : std_logic_vector (63 downto 0);
+
+    signal celda_marco_inf     : std_logic_vector(4 downto 0);
+    signal fila_marco_inf      : std_logic_vector(2 downto 0);
+    signal columna_marco_inf   : std_logic_vector(2 downto 0);
+    signal en_marco_inf        : std_logic;
+    signal dir_mi              : std_logic_vector (7 downto 0);
+    signal dato_mi             : std_logic_vector (63 downto 0);
+    
 
 --fin agregado 1
 
 begin
-    U1 : sincronismo port map(
+    Sinc: sincronismo port map(
         rst       =>  '0' ,
         clk       => p_clk,
 
@@ -106,42 +147,81 @@ begin
         fila      =>fila,
         columna   =>columna
         );
-    U2 : pixel_pll port map (
+        
+    Reloj: pixel_pll port map (
         REFERENCECLK => clk,
         PLLOUTGLOBAL => p_clk,
         RESET        => '1'
         );
 -- inicio agregado 2
-    U3: grilla port map(
-        visible         =>visible ,
-        fila            =>fila    ,
-        columna         =>columna ,
-        celda           =>celda         ,
-        fila_celda      =>fila_celda    ,
-        columna_celda   =>columna_celda ,
-        en_caracter     =>en_caracter   
+    Zonas: grilla port map(
+        visible           => visible ,
+        fila              => fila    ,
+        columna           => columna , 
+
+        celda             => celda         ,
+        fila_celda        => fila_celda    ,
+        columna_celda     => columna_celda ,
+        en_caracter       => en_caracter   ,
+
+        celda_marco_sup   => celda_marco_sup  ,
+        fila_marco_sup    => fila_marco_sup   ,
+        columna_marco_sup => columna_marco_sup,
+        en_marco_sup      => en_marco_sup     , 
+
+        celda_marco_inf   => celda_marco_inf   ,
+        fila_marco_inf    => fila_marco_inf    ,
+        columna_marco_inf => columna_marco_inf , 
+        en_marco_inf      => en_marco_inf   
         );   
 
-   U4:Texto_fijo port map(
-       celda           =>celda ,
-       dir             =>dir
+    Programacion: Texto_fijo port map(
+       celda           => celda ,
+       celda_marco_sup => celda_marco_sup,  
+       celda_marco_inf => celda_marco_inf,  
+
+       dir             => dir,
+       dir_mi          => dir_mi,
+       dir_ms          => dir_ms
        );
-       
-    U5: tabla_caracteres port map(
+
+    Txt_Centro: tabla_caracteres port map(
         dir     =>dir,
+
         dato    =>dato
         );
         
 
-    U6: Imp_pantalla port map(
-        dato            =>dato,
-        fila_celda      =>fila_celda    ,
-        columna_celda   =>columna_celda ,
-        en_caracter     =>en_caracter   ,
-        pixel           =>blanco
+    Impresion: Imp_pantalla port map(
+        dato              =>dato,
+        fila_celda        =>fila_celda    ,
+        columna_celda     =>columna_celda ,
+        en_caracter       =>en_caracter   ,
+
+        dato_ms           =>dato_ms,
+        fila_marco_sup    =>fila_marco_sup   , 
+        columna_marco_sup =>columna_marco_sup,  
+        en_marco_sup      =>en_marco_sup  ,
+
+        dato_mi           =>dato_mi,
+        fila_marco_inf    =>fila_marco_inf   ,
+        columna_marco_inf =>columna_marco_inf,
+        en_marco_inf      =>en_marco_inf  ,
+
+        pixel             =>blanco
         );
 
--- fin agregado 2
+    Txt_Sup: tabla_caracteres port map(
+        dir    =>dir_ms,
+
+        dato   =>dato_ms
+        );
+    Txt_Inf: tabla_caracteres port map(
+        dir    =>dir_mi,
+
+        dato   =>dato_mi
+        );
+-- fin gregado 2
 
     FF_DIV : ffd generic map (N=>25) port map (rst=>'0',d=>div1_sig,q=>div1,clk=>p_clk);
     div1_sig <= (others=>'0') when unsigned(div1) >= 25129999 else

@@ -18,11 +18,12 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 			<File>C:/Users/usuario/E2_2022/Proyecto_Final_EII/icecube/icecube_Implmnt/sbt/outputs/bitmap/top_bitmap.bin</File>
-			<FileTime>03/23/23 18:29:23</FileTime>
-			<JedecChecksum>0xD65E</JedecChecksum>
+			<FileTime>03/26/23 10:41:22</FileTime>
+			<JedecChecksum>0x8925</JedecChecksum>
 			<Operation>SPI Flash Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>
+				<SVFProcessor>SVF Processor</SVFProcessor>
 				<AccessMode>SPI Flash Programming</AccessMode>
 			</Option>
 			<FPGALoader>
@@ -46,6 +47,7 @@
 						<SVFVendor>JTAG STANDARD</SVFVendor>
 						<IOState>HighZ</IOState>
 						<IOVectorData>ðVX</IOVectorData>
+						<SVFProcessor>SVF Processor</SVFProcessor>
 						<AccessMode>JTAG</AccessMode>
 					</Option>
 				</Device>
@@ -80,6 +82,7 @@
 					</LocalChainList>
 					<Option>
 						<SVFVendor>JTAG STANDARD</SVFVendor>
+						<SVFProcessor>SVF Processor</SVFProcessor>
 					</Option>
 				</Device>
 			</FPGADevice>
@@ -92,6 +95,7 @@
 		<OperationOverride>No Override</OperationOverride>
 		<StartTAP>TLR</StartTAP>
 		<EndTAP>TLR</EndTAP>
+		<DisableCheckBoard value="TRUE"/>
 		<VerifyUsercode value="FALSE"/>
 		<TCKDelay>1</TCKDelay>
 	</ProjectOptions>
