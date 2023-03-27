@@ -65,14 +65,22 @@ architecture arch of top is
 
     component Texto_fijo is
         port(
-        celda           : in std_logic_vector  (2 downto 0);
+       -- celda           : in std_logic_vector  (2 downto 0);
         celda_marco_sup : in std_logic_vector(4 downto 0);
         celda_marco_inf : in std_logic_vector(4 downto 0);
 
-        dir             : out std_logic_vector (7 downto 0);
+       -- dir             : out std_logic_vector (7 downto 0);
         dir_ms          : out std_logic_vector (7 downto 0);
         dir_mi          : out std_logic_vector (7 downto 0)
         );
+    end component;
+    component txt is
+        port(
+            celda : in std_logic_vector (2 downto 0);
+            celda_offset: in std_logic_vector (3 downto 0);
+    
+            dir: out std_logic_vector(7 downto 0)
+            );
     end component;
     
     component tabla_caracteres is 
@@ -101,6 +109,17 @@ architecture arch of top is
                 en_marco_inf      : in std_logic;                   
                 
                 pixel             : out std_logic
+            );
+    end component;
+    
+   component desplazamiento is
+    
+        port(
+            clk: in std_logic;
+            rst: in std_logic;
+            sinc_v: in std_logic;
+    
+            celda_offset: out std_logic_vector(3 downto 0)
             );
     end component;
 
@@ -132,6 +151,8 @@ architecture arch of top is
     signal dir_mi              : std_logic_vector (7 downto 0);
     signal dato_mi             : std_logic_vector (63 downto 0);
     
+    signal celda_offset        : std_logic_vector(3 downto 0);
+    signal s_sinc_v            : std_logic;
 
 --fin agregado 1
 
@@ -141,13 +162,13 @@ begin
         clk       => p_clk,
 
         sinc_h    =>sinc_h ,
-        sinc_v    =>sinc_v ,
+        sinc_v    =>s_sinc_v ,
                 
         visible   =>visible,
         fila      =>fila,
         columna   =>columna
         );
-        
+    sinc_v <= s_sinc_v;
     Reloj: pixel_pll port map (
         REFERENCECLK => clk,
         PLLOUTGLOBAL => p_clk,
@@ -176,11 +197,11 @@ begin
         );   
 
     Programacion: Texto_fijo port map(
-       celda           => celda ,
+      -- celda           => celda ,
        celda_marco_sup => celda_marco_sup,  
        celda_marco_inf => celda_marco_inf,  
 
-       dir             => dir,
+     --  dir             => dir,
        dir_mi          => dir_mi,
        dir_ms          => dir_ms
        );
@@ -190,6 +211,14 @@ begin
 
         dato    =>dato
         );
+        --nuevo   
+    Tabla_txt: txt port map(
+            celda         =>celda,
+            celda_offset  =>celda_offset,
+    
+            dir      =>dir     
+            );
+   
         
 
     Impresion: Imp_pantalla port map(
@@ -221,6 +250,15 @@ begin
 
         dato   =>dato_mi
         );
+
+    Desplazar: desplazamiento port map(
+                clk=>p_clk,
+                rst=>'0',
+                sinc_v=>s_sinc_v,
+        
+                celda_offset=>celda_offset
+                );
+     
 -- fin gregado 2
 
     FF_DIV : ffd generic map (N=>25) port map (rst=>'0',d=>div1_sig,q=>div1,clk=>p_clk);

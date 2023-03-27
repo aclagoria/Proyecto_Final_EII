@@ -6,11 +6,11 @@ use IEEE.numeric_std.all;
 entity Texto_fijo is
     
     port(
-        celda             : in  std_logic_vector (2 downto 0);
+       -- celda             : in  std_logic_vector (2 downto 0);
         celda_marco_sup   : in  std_logic_vector (4 downto 0);
         celda_marco_inf   : in  std_logic_vector (4 downto 0);
 
-        dir               : out std_logic_vector (7 downto 0);
+       -- dir               : out std_logic_vector (7 downto 0);
         dir_ms            : out std_logic_vector (7 downto 0);
         dir_mi            : out std_logic_vector (7 downto 0)
         );
@@ -38,13 +38,13 @@ architecture solucion of Texto_fijo is
 
 begin
    
-  with celda select
-  dir<= H  when c0, 
-        A  when c1, 
-        P  when c2, 
-        P  when c3, 
-        Y  when c4, 
-        (others=>'0')  when others;
+ -- with celda select
+ -- dir<= H  when c0, 
+ --       A  when c1, 
+ --       P  when c2, 
+ --       P  when c3, 
+ --       Y  when c4, 
+ --       (others=>'0')  when others;
 
   
   dir_ms<= trebol;

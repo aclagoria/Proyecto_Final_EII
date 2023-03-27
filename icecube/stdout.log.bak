@@ -1,0 +1,78 @@
+Running in Lattice mode
+
+
+Starting:    C:\lscc\iCEcube2.2020.12\synpbase\bin64\mbin\synbatch.exe
+Install:     C:\lscc\iCEcube2.2020.12\synpbase
+Hostname:    DESKTOP-NGHV43V
+Date:        Sun Mar 26 16:50:26 2023
+Version:     L-2016.09L+ice40
+
+Arguments:   -product synplify_pro -batch icecube_syn.prj
+ProductType: synplify_pro
+
+
+
+
+
+log file: "C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\icecube.srr"
+Running: icecube_Implmnt in foreground
+
+Running icecube_syn|icecube_Implmnt
+
+Running: compile (Compile) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:26 2023
+
+Running: compile_flow (Compile Process) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:26 2023
+
+Running: compiler (Compile Input) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:26 2023
+Copied C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\synwork\icecube_comp.srs to C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\icecube.srs
+
+compiler completed
+# Sun Mar 26 16:50:33 2023
+
+Return Code: 0
+Run Time:00h:00m:07s
+
+Running: multi_srs_gen (Multi-srs Generator) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:33 2023
+
+multi_srs_gen completed
+# Sun Mar 26 16:50:34 2023
+
+Return Code: 0
+Run Time:00h:00m:01s
+Copied C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\synwork\icecube_mult.srs to C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\icecube.srs
+Complete: Compile Process on icecube_syn|icecube_Implmnt
+
+Running: premap (Pre-mapping) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:34 2023
+
+premap completed
+# Sun Mar 26 16:50:36 2023
+
+Return Code: 0
+Run Time:00h:00m:02s
+Complete: Compile on icecube_syn|icecube_Implmnt
+
+Running: map (Map) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:37 2023
+License granted for 4 parallel jobs
+
+Running: fpga_mapper (Map & Optimize) on icecube_syn|icecube_Implmnt
+# Sun Mar 26 16:50:37 2023
+Copied C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\synwork\icecube_m.srm to C:\Users\usuario\E2_2022\Proyecto_Final_EII\icecube\icecube_Implmnt\icecube.srm
+
+fpga_mapper completed with warnings
+# Sun Mar 26 16:50:48 2023
+
+Return Code: 1
+Run Time:00h:00m:11s
+Complete: Map on icecube_syn|icecube_Implmnt
+Complete: Logic Synthesis on icecube_syn|icecube_Implmnt
+
+exit status=0
+
+exit status=0
+

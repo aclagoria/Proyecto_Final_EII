@@ -10,6 +10,8 @@ add_file -vhdl -lib work "../tabla_caracteres.vhd"
 add_file -vhdl -lib work "../Imp_pantalla.vhd" 
 add_file -vhdl -lib work "../top.vhd" 
 add_file -vhdl -lib work "../Texto_fijo.vhd" 
+add_file -vhdl -lib work "../Tabla_de_texto.vhd" 
+add_file -vhdl -lib work "../Desplazamiento.vhd" 
 #implementation: "icecube_Implmnt"
 impl -add icecube_Implmnt -type fpga
 
