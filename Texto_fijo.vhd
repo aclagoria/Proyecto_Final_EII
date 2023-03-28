@@ -4,53 +4,43 @@ use IEEE.numeric_std.all;
 
 
 entity Texto_fijo is
-    
     port(
-       -- celda             : in  std_logic_vector (2 downto 0);
-        celda_marco_sup   : in  std_logic_vector (4 downto 0);
-        celda_marco_inf   : in  std_logic_vector (4 downto 0);
+      celda_marco_sup   : in  std_logic_vector (4 downto 0);
+      celda_marco_inf   : in  std_logic_vector (4 downto 0);
 
-       -- dir               : out std_logic_vector (7 downto 0);
-        dir_ms            : out std_logic_vector (7 downto 0);
-        dir_mi            : out std_logic_vector (7 downto 0)
-        );
+      dir_ms            : out std_logic_vector (7 downto 0);
+      dir_mi            : out std_logic_vector (7 downto 0)
+      );
 end Texto_fijo;
 
 architecture solucion of Texto_fijo is
   subtype letra is std_logic_vector(7 downto 0);
 
-  constant C0 : std_logic_vector(2 downto 0) := (others=>'0'); --celda 0 
-  constant C1 : std_logic_vector(2 downto 0) := ("001");       --celda 1 
-  constant C2 : std_logic_vector(2 downto 0) := ("010");       --celda 2 
-  constant C3 : std_logic_vector(2 downto 0) := ("011");       --celda 3 
-  constant C4 : std_logic_vector(2 downto 0) := ("100");       --celda 4 
-      
-  constant H       : letra := "01001000";--letra H
-  constant A       : letra := "01000001";--letra A
-  constant P       : letra := "01010000";--letra P
-  constant Y       : letra := "01011001";--letra Y
-  constant carita  : letra := "00000001";--
-  constant corazon : letra := "00000011";--
-  constant diamante: letra := "00000100";--
-  constant trebol  : letra := "00000101";--
-  constant pique   : letra := "00000110";--
-
-
 begin
    
- -- with celda select
- -- dir<= H  when c0, 
- --       A  when c1, 
- --       P  when c2, 
- --       P  when c3, 
- --       Y  when c4, 
- --       (others=>'0')  when others;
-
-  
-  dir_ms<= trebol;
-  dir_mi<= pique;
-
-
-
+  with celda_marco_sup select 
+  dir_ms<= x"04"  when 5x"03"|5x"04"|5x"0F"|5x"10", --DIAM
+           x"50"  when 5x"06", --P
+           x"52"  when 5x"07", --R
+           x"4F"  when 5x"08", --O
+           x"59"  when 5x"09", --Y
+           x"45"  when 5x"0A", --E
+           x"43"  when 5x"0B", --C
+           x"54"  when 5x"0C", --T
+           x"4F"  when 5x"0D", --O
+           x"00"  when others;
+    
+  with celda_marco_inf select
+  dir_mi<= x"00" when 5x"04"|5x"0F",
+           x"49" when 5x"05", --I
+           x"4E" when 5x"06", --N
+           x"54" when 5x"07", --T
+           x"45" when 5x"08", --E
+           x"47" when 5x"09", --G
+           x"52" when 5x"0A"|5x"0E", --R
+           x"41" when 5x"0B", --A
+           x"44" when 5x"0C", --D
+           x"4F" when 5x"0D", --O
+           x"04" when others; --diamante
           
 end solucion;

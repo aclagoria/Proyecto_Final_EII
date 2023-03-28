@@ -15,7 +15,7 @@ end desplazamiento;
 
 architecture solucion of desplazamiento is
 
-    constant c_max:std_logic_vector(5 downto 0) := std_logic_vector(to_unsigned(59,6));
+    constant c_max:std_logic_vector(5 downto 0) := std_logic_vector(to_unsigned(29,6));
 
     signal sinc_v_sig, sinc_v_act: std_logic_vector(0 downto 0);
     signal cont60_sig, cont60_act: std_logic_vector(5 downto 0);

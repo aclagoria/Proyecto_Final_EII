@@ -47,6 +47,6 @@ begin
     columna_marco_inf <= columna(4 downto 2);
     en_marco_inf      <= '1' when visible='1' and unsigned(fila) > 407 and unsigned(fila) < 440   else '0';
     f_marco_inf       <= std_logic_vector(unsigned(fila)-408);
-    fila_marco_inf    <= f_marco_sup (4 downto 2);
+    fila_marco_inf    <= f_marco_inf (4 downto 2);
     
 end solucion;
