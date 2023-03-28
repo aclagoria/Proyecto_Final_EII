@@ -1,4 +1,4 @@
-# Proyecto Final - Electrónica II para ingenieria electrónica -2022
+# Proyecto Integrador - Electrónica II para ingenieria electrónica -2022
 
 ## Generador de señales VGA y presentación en pantalla de imágen
 Una señal de video VGA contiene 5 señales activas. Se utilizan dos señales compatibles con niveles lógicos TTL, sincronización horizontal y sincronización vertical, para la sincronización de video. Se utilizan tres señales analógicas con niveles de pico a pico de 0,7 a 1 voltio para controlar el color. Las señales de color son rojo, verde y azul, conocidas como señales RGB, que al cambiar los niveles analógicos de estas se producen los demás colores.
