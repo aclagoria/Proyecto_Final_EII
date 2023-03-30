@@ -24,13 +24,13 @@ Para llevar a cabo la implementación deseada contamos de los siguientes  módul
 
 - **DESPLAZAMIENTO:** Este módulo nos permite desplazar el texto central, tiene como entradas a reset, clk y  sinc_v (salida del módulo sincronismo). Posee contadores internos que establecen la cantidad de refrescos de pantalla que se van produciendo, al llegar la cuenta a 60  se reinicia y cambia el valor de salida.
 
-- **TABLA DE TEXTO EN MOVIMIENTO:** Aquí se le asigna un valor de dirección (su salida) según la posicion de las celdas (su entrada) y el offset establecido por el módulo desplazamiento, que será enviado a la Tabla de caracteres para extraer de allí los códigos de las letras que se quieren mostrar.
+- **TABLA DE TEXTO MOVIL:** Aquí se le asigna un valor de dirección (su salida) según la posicion de las celdas (su entrada) y el offset establecido por el módulo desplazamiento, que será enviado a la Tabla de caracteres para extraer de allí los códigos de las letras que se quieren mostrar.
 
 - **TABLA DE TEXTO FIJO:** Funciona de identica manera que el módulo descripto anteriormente pero sin offset lo que permite que el marco sea fijo.
 
-- **TABLA DE CARACTERES:** Es una memoria ROM que contiene en codigo ASCII la fuente ibmbios. Possee una entrada de dirección de 8 bit y una de salida de 64 bit. La generación de esta tabla fue en base al código proporcionado por el docente.
+- **FUENTE:** Es una memoria ROM que contiene en codigo ASCII la fuente ibmbios. Possee una entrada de dirección de 8 bit y una de salida de 64 bit. La generación de esta tabla fue en base al código proporcionado por el docente.
 
-- **IMPRESIÓN DE PANTALLA:** Como entradas de este tenemos las salidas dato del módulo anterior y las salidas fila_celda, columna_celda y en_caracter del módulo grilla. Mediante estas asignamos la posición en el dato que proviene de ROM que será asignado al valor de salida pixel (activa alta).
+- **GENERADOR DE CARACTERES:** Como entradas de este tenemos las salidas dato del módulo anterior y las salidas fila_celda, columna_celda y en_caracter del módulo grilla. Mediante estas asignamos la posición en el dato que proviene de ROM que será asignado al valor de salida pixel (activa alta).
 
 - **TOP:** Este módulo nos posibilita la interconecxión de los demás, para hacer la respectiva sintetización a través del programa iCEcube2 que genera el bitmap necesario para configurar la FPGA mediante el programa Diamond Programer.
 
@@ -38,5 +38,6 @@ Para llevar a cabo la implementación deseada contamos de los siguientes  módul
 - Apuntes de la materia proporcionados por la cátedra de Electónica II para ingeniería electronica de la Facultad de ciencias Exactas y Tecnología; Universidad Nacional de Tucumán.
 - Quick Start Guide to VHDL;Brock J. LaMeres;Ed.Springer
 - Rapid Prototyping of Digital System; James Hamblen,Michel Furman;Ed.Springer
+- tinyvga.com
 
 - Y el acompañamiento constante del docente a cargo de la práctica.
